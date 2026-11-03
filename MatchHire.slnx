@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="MatchHire.Api/MatchHire.Api.csproj" />
+  <Project Path="MatchHire.Tests/MatchHire.Tests.csproj" />
+</Solution>

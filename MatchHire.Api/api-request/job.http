@@ -1,0 +1,57 @@
+### Create job (employer token from the login request)
+# @name createJob
+POST {{baseUrl}}/api/jobs
+Authorization: Bearer {{login.response.body.token}}
+Content-Type: application/json
+
+{
+  "title": "Backend Developer",
+  "location": "Toronto",
+  "jobType": "FullTime",
+  "minSalary": 80000,
+  "maxSalary": 120000,
+  "description": "Build APIs with ASP.NET Core and SQL Server",
+  "remote": true,
+  "requiredSkills": ["C#", "SQL"]
+}
+
+### Search jobs (no token needed)
+GET {{baseUrl}}/api/jobs?title=backend&remote=true&page=0&size=10
+
+### Get job by id
+GET {{baseUrl}}/api/jobs/{{createJob.response.body.id}}
+
+### Update job
+PUT {{baseUrl}}/api/jobs/{{createJob.response.body.id}}
+Authorization: Bearer {{login.response.body.token}}
+Content-Type: application/json
+
+{
+  "title": "Senior Backend Developer",
+  "location": "Toronto",
+  "jobType": "FullTime",
+  "minSalary": 100000,
+  "maxSalary": 140000,
+  "description": "Build APIs with ASP.NET Core and SQL Server",
+  "remote": true,
+  "requiredSkills": ["C#", "SQL", "Azure"]
+}
+
+### Max salary lower than min -> 400
+POST {{baseUrl}}/api/jobs
+Authorization: Bearer {{login.response.body.token}}
+Content-Type: application/json
+
+{
+  "title": "Invalid",
+  "location": "Toronto",
+  "jobType": "FullTime",
+  "minSalary": 100000,
+  "maxSalary": 50000,
+  "description": "x",
+  "remote": false
+}
+
+### Delete job
+DELETE {{baseUrl}}/api/jobs/{{createJob.response.body.id}}
+Authorization: Bearer {{login.response.body.token}}
